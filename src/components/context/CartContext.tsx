@@ -31,7 +31,7 @@ export default function CartContextProvider({children}:{children:ReactNode}) {
    async function getCart() {
          setIsLoading(true)
             
-         const response = await fetch('https://ecommerce.routemisr.com/api/v1/cart')
+         const response = await fetch('http://localhost:3000/api/get-cart')
        const data:CartResponse = await response.json()
 
          setCartData(data)
