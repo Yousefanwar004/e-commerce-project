@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/navbar/page";
+import { Toaster } from "react-hot-toast";
+import CartContextProvider from "@/components/context/CartContext";
+import Footer from "@/components/footer/page";
+import { SessionProvider } from "next-auth/react";
+import MySessionProvider from "@/components/mySessionProvider/MySessionProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,11 +29,26 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        suppressHydrationWarning
       >
-        {children}
+        <MySessionProvider>
+       <CartContextProvider>
+                <Navbar/>
+        <div className="container mx-auto p-5">
+                    {children}
+                          <Toaster />
+              
+
+           <Footer/>
+
+        </div>
+
+
+       </CartContextProvider>
+   </MySessionProvider>
       </body>
     </html>
   );
